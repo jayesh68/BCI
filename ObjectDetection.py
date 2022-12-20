@@ -257,6 +257,16 @@ def processBlueBoxes(img2, img, ct, c1, c2, c3, c4, c5, c6, c7, r1, r2, r3, r4, 
 
 
 def main():
+    zed = sl.Camera()
+
+    # Set configuration parameters
+    input_type = sl.InputType()
+    if len(sys.argv) >= 2 :
+        input_type.set_from_svo_file(sys.argv[1])
+    init = sl.InitParameters(input_t=input_type)
+    init.camera_resolution = sl.RESOLUTION.HD1080
+    init.camera_fps = 30
+
     image_orig = cv2.imread('NewRes.png')
     lines=[]
     lines1=[]
@@ -266,6 +276,25 @@ def main():
     lower_corners2, bottom_last = [], []
     ct = CentroidTracker()
 
+    # Open the camera
+    err = zed.open(init)
+    if err != sl.ERROR_CODE.SUCCESS :
+        print(repr(err))
+        zed.close()
+        exit(1)
+
+    # Set runtime parameters after opening the camera
+    runtime = sl.RuntimeParameters()
+    runtime.sensing_mode = sl.SENSING_MODE.STANDARD
+
+    # Prepare new image size to retrieve half-resolution images
+    image_size = zed.get_camera_information().camera_resolution
+    image_size.width = image_size.width /2
+    image_size.height = image_size.height /2
+
+    # Declare your sl.Mat matrices
+    image_zed = sl.Mat(image_size.width, image_size.height, sl.MAT_TYPE.U8_C4)
+    
     # Extracting relevant area for processing
     img = image_orig[25:449, 400: 886]
     # img2 = img.copy()
