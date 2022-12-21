@@ -6,7 +6,6 @@ import scipy
 import scipy.fft
 from scipy.spatial import ConvexHull
 #print(cv2.__version__)
-from pyzbar.pyzbar import decode
 from scipy.spatial import distance as dist
 from collections import OrderedDict
 from collections import defaultdict
@@ -32,7 +31,7 @@ class CentroidTracker():
     def register(self, centroid):
         # when registering an object we use the next available object
         # ID to store the centroid
-        self.objects.append(Track(centroid,self.nextObjectID))
+        self.objects.append(Track(centroid, self.nextObjectID))
         self.nextObjectID += 1
         
     def update(self, centroids):
@@ -63,7 +62,6 @@ class CentroidTracker():
             
             # print('Input Centroids',inputCentroids)
             # print('Object Centroids',np.array(objectCentroids))
-            # objectCentroids = list(self.objects.values())
             #print('object IDs',objectIDs,objectCentroids)
             D = dist.cdist(np.array(objectCentroids), inputCentroids)
             # print('D',D)
@@ -99,6 +97,7 @@ class CentroidTracker():
                         # print('Inside correction')
                         self.objects[i].centroids=self.objects[i].KF.correct(inputCentroids[col],1)
                         self.objects[i].KF.lastResult = self.objects[i].centroids
+
                 # indicate that we have examined each of the row and
                 # column indexes, respectively
                 usedRows.add(row)

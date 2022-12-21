@@ -11,7 +11,7 @@ import numpy as np
 class KalmanFilter1(object):
 
     def __init__(self):
-        self.dt = 0.005  # delta time
+        self.dt = 0.005 # delta time
 
         self.A = np.array([[1, 0], [0, 1]])  # matrix in observation equations
         self.u = np.zeros((2, 1))  # previous state vector
@@ -19,7 +19,7 @@ class KalmanFilter1(object):
         # (x,y) tracking object center
         self.b = np.array([[0], [255]])  # vector of observations
 
-        self.P = np.diag((3.0, 3.0))  # covariance matrix
+        self.P = np.diag((13.0, 13.0))  # covariance matrix
         self.F = np.array([[1.0, self.dt], [0.0, 1.0]])  # state transition mat
 
         self.Q = np.eye(self.u.shape[0])  # process noise matrix

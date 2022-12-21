@@ -2,13 +2,13 @@ import sys
 import numpy as np
 import cv2
 from homograpy import *
-from utilitiesGrid4 import *
-from GridLinesStore import *
 import math
 import scipy
 import scipy.fft
 from scipy.spatial import ConvexHull
 import pickle
+from centroidtracker2 import CentroidTracker
+import collections
 
 def CheckCellContour(Cells, x, y):
     for key, value in Cells.items():
