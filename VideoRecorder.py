@@ -52,7 +52,8 @@ def main() :
             # Retrieve the left image, depth image in the half-resolution
             zed.retrieve_image(image_zed, sl.VIEW.RIGHT, sl.MEM.CPU, image_size)
 
-        count+=1
+        count+=q
+
         print('count',count)
         image_orig = image_zed.get_data()
         cv2.imshow('Image_orig',image_orig)
