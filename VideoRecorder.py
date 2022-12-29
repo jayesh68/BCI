@@ -52,14 +52,14 @@ def main() :
             # Retrieve the left image, depth image in the half-resolution
             zed.retrieve_image(image_zed, sl.VIEW.RIGHT, sl.MEM.CPU, image_size)
 
-        if count==1:
-            break
+        # if count==1:
+        #     break
         count+=1
 
         print('count',count)
         image_orig = image_zed.get_data()
         cv2.imshow('Image_orig',image_orig)
-        cv2.imwrite("BCI/InputFrames/EmptyPuzzle.png", image_orig)
+        cv2.imwrite("BCI/InputFrames/Puzzle5/Frame"+str(count)+ ".png", image_orig)
 
         if cv2.waitKey(1) & 0xFF==ord('q'):
             break
